@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Briefing Técnico · Aramón · webDreams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaf7; --ink:#1b1c1e; --muted:#6a6c70; --line:#e4e1d8;
+    --blue:#2e75b6; --blue-deep:#1d4f7e; --green:#1f8a4c; --red:#c0392b; --gold:#b7950b;
+    --panel:#ffffff; --sidebar:#15243a; --sidebar-ink:#cdd6e4; --sidebar-active:#fff;
+    --maxw:880px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"Spline Sans",-apple-system,sans-serif;
+    font-size:17px;line-height:1.65;
+    display:grid;grid-template-columns:300px 1fr;min-height:100vh;
+  }
+  /* ---------- sidebar ---------- */
+  aside{
+    background:var(--sidebar);color:var(--sidebar-ink);
+    position:sticky;top:0;height:100vh;overflow-y:auto;
+    padding:34px 26px;border-right:1px solid #0d1726;
+  }
+  .brand{font-family:"Fraunces",serif;font-weight:900;font-size:26px;color:#fff;letter-spacing:-.5px}
+  .brand span{color:var(--blue)}
+  .brand-sub{font-size:12.5px;color:#7e8aa0;margin-top:4px;letter-spacing:.08em;text-transform:uppercase}
+  nav{margin-top:34px}
+  nav a{
+    display:block;color:var(--sidebar-ink);text-decoration:none;
+    padding:9px 13px;border-radius:8px;font-size:14.5px;margin-bottom:2px;
+    border-left:2px solid transparent;transition:all .18s ease;
+  }
+  nav a:hover{background:#1f3252;color:#fff}
+  nav a.active{color:var(--sidebar-active);background:#243a5e;border-left-color:var(--blue);font-weight:500}
+  .nav-group{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#5f6b80;margin:22px 0 8px 13px}
+  .confidential strong{display:block;margin-bottom:3px;color:#f0b7b0}
+  .confidential{margin-top:30px;padding:12px 14px;background:rgba(192,57,43,.14);border:1px solid rgba(192,57,43,.3);border-radius:8px;font-size:12px;color:#e8a7a0;line-height:1.5}
+  /* ---------- main ---------- */
+  main{padding:0}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:64px 48px 120px}
+  .pagehead{margin-bottom:8px}
+  .kicker{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:14px}
+  h1{font-family:"Fraunces",serif;font-weight:900;font-size:44px;line-height:1.08;letter-spacing:-1px;margin-bottom:10px}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:27px;margin:46px 0 14px;letter-spacing:-.4px;padding-top:10px}
+  h3{font-size:18px;font-weight:600;margin:26px 0 8px;color:var(--blue-deep)}
+  p{margin-bottom:15px;color:#2c2e31}
+  .lead{font-size:19.5px;color:var(--muted);line-height:1.6;margin-bottom:8px}
+  ul{margin:0 0 16px 4px;list-style:none}
+  li{position:relative;padding-left:26px;margin-bottom:9px;color:#2c2e31}
+  li::before{content:"";position:absolute;left:4px;top:11px;width:7px;height:7px;background:var(--blue);border-radius:50%}
+  strong{font-weight:600;color:var(--ink)}
+  section{display:none;animation:fade .35s ease}
+  section.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+  th{background:var(--blue);color:#fff;text-align:left;padding:11px 14px;font-weight:600;font-size:14px}
+  td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top;color:#33363a}
+  tr:nth-child(even) td{background:#f5f3ee}
+  .tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:12.5px;font-weight:600}
+  .t-veryhigh{background:#fbe3df;color:var(--red)}
+  .t-high{background:#fcf2d8;color:var(--gold)}
+  .t-med{background:#e2f1e7;color:var(--green)}
+  /* callout */
+  .callout{border-radius:10px;padding:18px 22px;margin:20px 0;border-left:5px solid}
+  .callout h4{font-size:15px;font-weight:600;margin-bottom:6px;letter-spacing:.02em}
+  .callout p{margin:0;font-size:15px;color:#3a3c40}
+  .c-red{background:#fbeae7;border-color:var(--red)}.c-red h4{color:var(--red)}
+  .c-gold{background:#fdf7e3;border-color:var(--gold)}.c-gold h4{color:var(--gold)}
+  .c-green{background:#e7f3ec;border-color:var(--green)}.c-green h4{color:var(--green)}
+  /* figure */
+  figure{margin:26px 0;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  figure svg{width:100%;height:auto;display:block}
+  figcaption{text-align:center;font-size:13.5px;color:var(--muted);margin-top:12px;font-style:italic}
+  .figbar{display:flex;justify-content:flex-end;margin-bottom:6px}
+  .zoom-btn{font-size:12px;color:var(--blue);background:none;border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:inherit}
+  .zoom-btn:hover{background:#eef4fa}
+  .masknote{font-size:12.5px;color:var(--muted);text-align:right;margin-top:4px}
+  /* pager */
+  .pager{display:flex;justify-content:space-between;margin-top:56px;padding-top:24px;border-top:1px solid var(--line);gap:16px}
+  .pager a{flex:1;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px 18px;transition:all .18s}
+  .pager a:hover{border-color:var(--blue);background:#fff}
+  .pager .dir{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+  .pager .ttl{font-weight:600;color:var(--blue-deep);margin-top:2px}
+  .pager .next{text-align:right}
+  .pager .empty{visibility:hidden}
+  /* footer */
+  .sitefoot{max-width:var(--maxw);margin:0 auto;padding:0 48px 60px;color:var(--muted);font-size:13px}
+  /* lightbox */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(15,20,30,.92);z-index:100;padding:30px;cursor:zoom-out}
+  .lightbox.open{display:flex;align-items:center;justify-content:center}
+  .lightbox svg{width:96%;max-width:1500px;height:auto;background:#fff;border-radius:8px;padding:20px}
+  /* responsive */
+  @media(max-width:900px){
+    body{grid-template-columns:1fr}
+    aside{position:static;height:auto;border-right:0;border-bottom:1px solid #0d1726}
+    .wrap{padding:40px 22px 80px}
+    h1{font-size:34px}
+  }
+  .menu-toggle{display:none}
+</style>
+</head>
+<body>
+<aside>
+  <div class="brand">web<span>Dreams</span></div>
+  <div class="brand-sub">Briefing · Aramón</div>
+  <nav id="nav">
+    <div class="nav-group">Informe</div>
+    <a href="#contexto" data-sec="contexto" class="active">1 · Contexto y objetivo</a>
+    <a href="#inventario" data-sec="inventario">2 · Inventario de servidores</a>
+    <a href="#arquitectura" data-sec="arquitectura">3 · Arquitectura actual</a>
+    <a href="#seguridad" data-sec="seguridad">4 · Diagnóstico de seguridad</a>
+    <a href="#disponibilidad" data-sec="disponibilidad">5 · Disponibilidad</a>
+    <a href="#propuestas" data-sec="propuestas">6 · Propuestas de mejora</a>
+    <a href="#resumen" data-sec="resumen">7 · Impacto y prioridad</a>
+    <a href="#pendientes" data-sec="pendientes">8 · A tratar con Aramón</a>
+    <div class="nav-group">Anexos</div>
+    <a href="#azure" data-sec="azure">A · Adaptación a Azure</a>
+    <a href="#ens" data-sec="ens">B · Cumplimiento ENS-Media</a>
+  </nav>
+  <div class="confidential"><strong>Información confidencial.</strong> Versión web con datos de infraestructura enmascarados. Uso interno para reunión.</div>
+</aside>
+
+<main>
+<div class="wrap">
+
+  <!-- 1 -->
+  <section id="contexto" class="active">
+    <div class="pagehead"><div class="kicker">Briefing técnico · Junio 2026</div>
+      <h1>Arquitectura del ecosistema Aramón</h1></div>
+    <p class="lead">Una primera fotografía del estado actual y una propuesta de modernización orientada a seguridad, escalabilidad, disponibilidad e integridad.</p>
+    <hr>
+    <p>El ecosistema tecnológico de Aramón se asienta sobre una infraestructura definida hace más de diez años. Da servicio de forma estable al negocio, pero su planificación original responde a necesidades y prácticas que hoy han quedado superadas: la seguridad es limitada, no existe redundancia y las garantías de disponibilidad son escasas.</p>
+    <p>El objetivo de esta propuesta es trazar el camino hacia una infraestructura moderna que garantice cuatro pilares:</p>
+    <ul>
+      <li><strong>Seguridad:</strong> inspección del tráfico, protección por capas y control de accesos.</li>
+      <li><strong>Escalabilidad:</strong> capacidad de absorber picos estacionales sin sobredimensionar de forma permanente.</li>
+      <li><strong>Disponibilidad:</strong> eliminación de los puntos únicos de fallo y continuidad de los procesos críticos.</li>
+      <li><strong>Integridad:</strong> trazabilidad, copias de seguridad fiables y datos consistentes.</li>
+    </ul>
+    <p>Este documento ofrece una visión clara y priorizable, pensada para una reunión inicial. El detalle de adaptación a un proveedor cloud concreto y al cumplimiento normativo se recoge en los anexos.</p>
+    <div class="pager"><span class="empty"></span>
+      <a class="next" href="#inventario" data-sec="inventario"><div class="dir">Siguiente →</div><div class="ttl">Inventario de servidores</div></a></div>
+  </section>
+
+  <!-- 2 -->
+  <section id="inventario">
+    <div class="kicker">Sección 2</div><h1>Inventario de servidores</h1>
+    <p>El ecosistema se compone de los siguientes servidores. Todos son máquinas virtuales sobre VMware, con Windows Server 2019 Datacenter, organizadas en grupo de trabajo.</p>
+    <table>
+      <tr><th>Servidor</th><th>Rol</th><th>SO / Software</th><th>Recursos</th></tr>
+      <tr><td><strong>Servidor WEB</strong></td><td>Front B2C, backoffices, parte de nieve, scraping interno</td><td>WS 2019 Datacenter</td><td>2 vCPU · 5 GB · 399 GB</td></tr>
+      <tr><td><strong>Servidor WS</strong></td><td>Webservices SOAP/REST a operadores externos</td><td>WS 2019 Datacenter</td><td>1 vCPU · 2,5 GB · 199 GB</td></tr>
+      <tr><td><strong>Servidor APP</strong></td><td>API de la app: venta, gamificación, bus de clientes</td><td>WS 2019 Datacenter</td><td>1 vCPU · 3 GB · 49 GB</td></tr>
+      <tr><td><strong>Servidor SQL</strong></td><td>Todas las bases de datos del ecosistema (19 BBDD)</td><td>WS 2019 Datacenter + SQL Server <strong>Enterprise</strong></td><td>5 vCPU · 10 GB · 499 GB</td></tr>
+      <tr><td><strong>Servidor adicional</strong></td><td><em style="color:var(--gold)">Rol y dependencias pendientes de detallar</em></td><td>Pendiente</td><td>Pendiente</td></tr>
+      <tr><td><strong>Servidor de scraping</strong></td><td><em style="color:var(--gold)">Rol y dependencias pendientes de detallar</em></td><td>Pendiente</td><td>Pendiente</td></tr>
+    </table>
+    <div class="callout c-gold"><h4>Observación sobre el licenciamiento</h4>
+      <p>Las máquinas usan Windows Server <strong>Datacenter</strong>, edición pensada para entornos de alta densidad de virtualización. Aquí se trata de máquinas individuales: el caso de uso corresponde a la edición Standard. Del mismo modo, el motor de base de datos es SQL Server <strong>Enterprise</strong>, pero la instancia no está en clúster ni emplea Always On: no se aprovecha ninguna de las funciones que justifican esa edición.</p></div>
+    <div class="pager">
+      <a href="#contexto" data-sec="contexto"><div class="dir">← Anterior</div><div class="ttl">Contexto y objetivo</div></a>
+      <a class="next" href="#arquitectura" data-sec="arquitectura"><div class="dir">Siguiente →</div><div class="ttl">Arquitectura actual</div></a></div>
+  </section>
+
+  <!-- 3 -->
+  <section id="arquitectura">
+    <div class="kicker">Sección 3</div><h1>Arquitectura del ecosistema actual</h1>
+    <p>El siguiente diagrama resume la organización actual del ecosistema. Es escalable: puede ampliarse con el botón de zoom o con el zoom del navegador sin pérdida de calidad.</p>
+    <figure>
+      <div class="figbar"><button class="zoom-btn" onclick="openLB('lb-actual')">Ampliar ⤢</button></div>
+      <svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#555555"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1400" height="900" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="40" y="50" font-size="34" font-weight="bold" fill="#1A1A1A">Ecosistema actual — Aramón</text>
+  <text x="40" y="84" font-size="20" fill="#555555">Infraestructura en hosting tradicional. Único perímetro: firewall edge del proveedor.</text>
+
+  <!-- Internet / users -->
+  <rect x="40" y="130" width="300" height="90" rx="10" fill="#E8EEF4" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="190" y="170" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Internet</text>
+  <text x="190" y="198" font-size="17" fill="#555555" text-anchor="middle">Clientes B2C · Operadores</text>
+
+  <!-- Edge firewall -->
+  <rect x="430" y="130" width="320" height="90" rx="10" fill="#FBE9E7" stroke="#C0392B" stroke-width="2.5"/>
+  <text x="590" y="165" font-size="21" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Firewall edge (proveedor)</text>
+  <text x="590" y="195" font-size="16" fill="#C0392B" text-anchor="middle">Sin WAF · Sin inspección capa 7</text>
+
+  <line x1="340" y1="175" x2="430" y2="175" stroke="#555555" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Presentation layer -->
+  <text x="40" y="285" font-size="20" font-weight="bold" fill="#2E75B6">Capa de presentación / aplicación</text>
+
+  <!-- WEB -->
+  <rect x="40" y="305" width="300" height="150" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="190" y="338" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor WEB</text>
+  <text x="190" y="366" font-size="15" fill="#555555" text-anchor="middle">Front B2C · backoffices</text>
+  <text x="190" y="388" font-size="15" fill="#555555" text-anchor="middle">sitios web públicos</text>
+  <text x="190" y="410" font-size="15" fill="#555555" text-anchor="middle">y backoffices</text>
+  <text x="190" y="438" font-size="14" font-weight="bold" fill="#C0392B" text-anchor="middle">RECARGAS ARAMÓN (crítico)</text>
+
+  <!-- WS / BUSES -->
+  <rect x="370" y="305" width="300" height="150" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="520" y="338" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor WS</text>
+  <text x="520" y="362" font-size="15" fill="#555555" text-anchor="middle">(webservices)</text>
+  <text x="520" y="388" font-size="15" fill="#555555" text-anchor="middle">Webservices SOAP / REST</text>
+  <text x="520" y="412" font-size="15" fill="#555555" text-anchor="middle">Bus clientes · transacciones</text>
+  <text x="520" y="438" font-size="14" fill="#555555" text-anchor="middle">Cashless · SFSC</text>
+
+  <!-- APP -->
+  <rect x="700" y="305" width="300" height="150" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="850" y="338" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor APP</text>
+  <text x="850" y="364" font-size="15" fill="#555555" text-anchor="middle">API app Spotlio</text>
+  <text x="850" y="388" font-size="15" fill="#555555" text-anchor="middle">React · .Net · IIS</text>
+  <text x="850" y="414" font-size="14" fill="#555555" text-anchor="middle">Venta · gamificación</text>
+  <text x="850" y="438" font-size="13" fill="#1F8A4C" text-anchor="middle">Whitelist IP oficina (solo gestión)</text>
+
+  <!-- Otros: Servidor adicional + scraping -->
+  <rect x="1030" y="305" width="330" height="150" rx="10" fill="#FFF8E1" stroke="#B7950B" stroke-width="2.5"/>
+  <text x="1195" y="338" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Otros servidores</text>
+  <text x="1195" y="366" font-size="15" fill="#555555" text-anchor="middle">Servidor adicional</text>
+  <text x="1195" y="390" font-size="15" fill="#555555" text-anchor="middle">Servidor de scraping</text>
+  <text x="1195" y="420" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">Rol y dependencias</text>
+  <text x="1195" y="440" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">pendientes de detallar</text>
+
+  <!-- arrows from edge to layer -->
+  <line x1="560" y1="220" x2="300" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="590" y1="220" x2="540" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="620" y1="220" x2="820" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- SQL layer -->
+  <text x="40" y="535" font-size="20" font-weight="bold" fill="#2E75B6">Capa de datos</text>
+  <rect x="40" y="555" width="960" height="190" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="520" y="592" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor SQL — instancia única (Enterprise)</text>
+  <text x="520" y="624" font-size="16" fill="#C0392B" text-anchor="middle" font-weight="bold">Cuello de botella · Punto único de fallo (SPOF) · 19 bases de datos en un solo servidor</text>
+
+  <text x="170" y="662" font-size="15" font-weight="bold" fill="#1F8A4C" text-anchor="middle">Negocio</text>
+  <text x="170" y="686" font-size="13" fill="#555555" text-anchor="middle">abonoTemporada,</text>
+  <text x="170" y="706" font-size="13" fill="#555555" text-anchor="middle">Promociones, wdRecargas,</text>
+  <text x="170" y="726" font-size="13" fill="#555555" text-anchor="middle">cashless, cashback…</text>
+
+  <text x="470" y="662" font-size="15" font-weight="bold" fill="#1F8A4C" text-anchor="middle">Servicio</text>
+  <text x="470" y="686" font-size="13" fill="#555555" text-anchor="middle">busTransacciones,</text>
+  <text x="470" y="706" font-size="13" fill="#555555" text-anchor="middle">InterfaceClientesG7,</text>
+  <text x="470" y="726" font-size="13" fill="#555555" text-anchor="middle">Marchica, sfsc…</text>
+
+  <text x="800" y="662" font-size="15" font-weight="bold" fill="#1F8A4C" text-anchor="middle">Reporting (espejo)</text>
+  <text x="800" y="686" font-size="13" fill="#555555" text-anchor="middle">espejo_abonotemporada,</text>
+  <text x="800" y="706" font-size="13" fill="#555555" text-anchor="middle">espejo_promociones,</text>
+  <text x="800" y="726" font-size="13" fill="#555555" text-anchor="middle">espejo_skidreams…</text>
+
+  <line x1="320" y1="295" x2="420" y2="555" stroke="#555555" stroke-width="2" stroke-dasharray="2 0" marker-end="url(#arrow)" opacity="0"/>
+  <line x1="190" y1="455" x2="300" y2="555" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="520" y1="455" x2="520" y2="555" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="850" y1="455" x2="700" y2="555" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Findings box -->
+  <rect x="1030" y="555" width="330" height="190" rx="10" fill="#FBE9E7" stroke="#C0392B" stroke-width="2.5"/>
+  <text x="1195" y="588" font-size="18" font-weight="bold" fill="#C0392B" text-anchor="middle">Hallazgos clave</text>
+  <text x="1050" y="618" font-size="14.5" fill="#1A1A1A">• Sin redundancia ni balanceo</text>
+  <text x="1050" y="644" font-size="14.5" fill="#1A1A1A">• Defender (FW + AV) desactivado</text>
+  <text x="1050" y="670" font-size="14.5" fill="#1A1A1A">• Filtrado IP y tráfico sin reglas</text>
+  <text x="1050" y="696" font-size="14.5" fill="#1A1A1A">• Solo redirección 80→443</text>
+  <text x="1050" y="722" font-size="14.5" fill="#1A1A1A">• Actualizaciones sin gestionar</text>
+
+  <!-- footer note -->
+  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Todos los servidores: VMware · Windows Server 2019 Datacenter · grupo de trabajo.</text>
+</svg>
+      <figcaption>Figura 1. Ecosistema actual.</figcaption>
+    </figure>
+    <p class="masknote">Los nombres de servidor, dominios e IPs se muestran enmascarados en esta versión web.</p>
+    <h2>Capas del ecosistema</h2>
+    <h3>Servidor WEB</h3>
+    <p>Sirve todos los sitios web, el front B2C y diversos backoffices. Es el punto de mayor exposición y concentra los procesos de negocio críticos, entre ellos <strong>RECARGAS ARAMÓN</strong>. Incluye módulos de venta de abonos y forfaits, promociones, gamificación, zona privada de clientes y publicación del parte de nieve.</p>
+    <h3>Servidor WS (webservices)</h3>
+    <p>Aloja y expone los webservices (SOAP y REST sobre IIS) que emplean operadores externos. Cubre administración interna, bus de clientes, bus de transacciones, cashless y tokenización, e integración SFSC. Depende del servidor SQL.</p>
+    <h3>Servidor APP</h3>
+    <p>Aloja la API que da servicio a la app, que concentra venta, gamificación y bus de clientes. Tecnologías React, .Net e IIS. Depende del servidor SQL.</p>
+    <h3>Servidor SQL</h3>
+    <p>Aloja la totalidad de las bases de datos del ecosistema (19 bases agrupadas en negocio, servicio, reporting y add-ins). Es el corazón del sistema y su mayor concentración de riesgo. Entre sus procesos destaca <strong>ventasG7_perso</strong> (servicio crítico).</p>
+    <h3>Monitorización actual</h3>
+    <p>Grafana (métricas de servidor), SQL Profiler (consultas en tiempo real), Management Studio (estado del servidor) y un monitor interno de procesos que avisa de caídas y restauraciones.</p>
+    <div class="pager">
+      <a href="#inventario" data-sec="inventario"><div class="dir">← Anterior</div><div class="ttl">Inventario</div></a>
+      <a class="next" href="#seguridad" data-sec="seguridad"><div class="dir">Siguiente →</div><div class="ttl">Diagnóstico de seguridad</div></a></div>
+  </section>
+
+  <!-- 4 -->
+  <section id="seguridad">
+    <div class="kicker">Sección 4</div><h1>Diagnóstico de seguridad</h1>
+    <p>Actualmente, las medidas de protección de la aplicación se apoyan en las capacidades nativas de IIS y en el firewall perimetral del proveedor de hosting. El estado real presenta las siguientes características:</p>
+    <div class="callout c-red"><h4>Hallazgo principal</h4>
+      <p>No existe un WAF (firewall de aplicación). Los dominios apuntan directamente a la IP de los servidores, lo que deja al ecosistema sin inspección en la capa de aplicación frente a los vectores de ataque más habituales (OWASP Top 10, abusos de API, inyecciones).</p></div>
+    <h2>Estado de las protecciones</h2>
+    <ul>
+      <li><strong>Filtrado por IP:</strong> el módulo está instalado pero sin reglas configuradas en prácticamente todos los servicios. La única excepción es la app, con una lista blanca de la IP de oficina orientada a la gestión.</li>
+      <li><strong>Reglas de tráfico:</strong> los límites por concurrencia y frecuencia están desactivados en todos los servicios.</li>
+      <li><strong>Cabeceras de seguridad:</strong> únicamente se aplica la redirección de HTTP a HTTPS. No hay cabeceras (HSTS, CSP), control de exposición en páginas de error ni protección específica de endpoints sensibles.</li>
+      <li><strong>Protección del host:</strong> el firewall y el antivirus de Windows Defender están desactivados. La protección recae en exclusiva sobre el firewall perimetral del proveedor.</li>
+    </ul>
+    <h2>Lo que está correctamente planteado</h2>
+    <p>El firewall de control de acceso (RDP, puertos de base de datos) sigue un criterio acertado: todo cerrado por defecto, abriendo únicamente lo necesario. Es una buena base sobre la que construir.</p>
+    <div class="pager">
+      <a href="#arquitectura" data-sec="arquitectura"><div class="dir">← Anterior</div><div class="ttl">Arquitectura actual</div></a>
+      <a class="next" href="#disponibilidad" data-sec="disponibilidad"><div class="dir">Siguiente →</div><div class="ttl">Disponibilidad</div></a></div>
+  </section>
+
+  <!-- 5 -->
+  <section id="disponibilidad">
+    <div class="kicker">Sección 5</div><h1>Diagnóstico de disponibilidad y continuidad</h1>
+    <p>Más allá de la seguridad, la arquitectura actual presenta debilidades estructurales en disponibilidad y continuidad:</p>
+    <ul>
+      <li><strong>Puntos únicos de fallo (SPOF):</strong> los servidores WEB, WS y SQL son puntos únicos de entrada. No hay redundancia ni balanceo en ninguna capa.</li>
+      <li><strong>SQL monolítico:</strong> un único servidor mezcla cargas transaccionales de venta con cargas de reporting, que compiten por los mismos recursos. Es un cuello de botella.</li>
+      <li><strong>Actualizaciones sin gestionar:</strong> no existe un proceso definido de aplicación de actualizaciones del sistema operativo y del software.</li>
+    </ul>
+    <div class="pager">
+      <a href="#seguridad" data-sec="seguridad"><div class="dir">← Anterior</div><div class="ttl">Seguridad</div></a>
+      <a class="next" href="#propuestas" data-sec="propuestas"><div class="dir">Siguiente →</div><div class="ttl">Propuestas de mejora</div></a></div>
+  </section>
+
+  <!-- 6 -->
+  <section id="propuestas">
+    <div class="kicker">Sección 6</div><h1>Propuestas de mejora</h1>
+    <p>Las propuestas se plantean en un modelo agnóstico (válido para cualquier proveedor) y pueden implementarse de forma incremental, priorizando las de mayor impacto en la continuidad del negocio.</p>
+    <figure>
+      <div class="figbar"><button class="zoom-btn" onclick="openLB('lb-prop')">Ampliar ⤢</button></div>
+      <svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#555555"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1400" height="900" fill="#FFFFFF"/>
+
+  <text x="40" y="50" font-size="34" font-weight="bold" fill="#1A1A1A">Arquitectura propuesta (modelo agnóstico)</text>
+  <text x="40" y="84" font-size="20" fill="#555555">Seguridad por capas · alta disponibilidad · eliminación de puntos únicos de fallo.</text>
+
+  <!-- Internet -->
+  <rect x="560" y="120" width="280" height="70" rx="10" fill="#E8EEF4" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="700" y="163" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Internet</text>
+
+  <!-- WAF -->
+  <rect x="500" y="220" width="400" height="80" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="3"/>
+  <text x="700" y="253" font-size="21" font-weight="bold" fill="#1A1A1A" text-anchor="middle">WAF + CDN (inspección capa 7)</text>
+  <text x="700" y="282" font-size="16" fill="#1F8A4C" text-anchor="middle">Cabeceras seguridad · reglas OWASP · anti-DDoS</text>
+  <line x1="700" y1="190" x2="700" y2="220" stroke="#555555" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Load balancer -->
+  <rect x="500" y="330" width="400" height="80" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="3"/>
+  <text x="700" y="363" font-size="21" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Load Balancer</text>
+  <text x="700" y="392" font-size="16" fill="#1F8A4C" text-anchor="middle">Health checks · TLS · rolling updates sin downtime</text>
+  <line x1="700" y1="300" x2="700" y2="330" stroke="#555555" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- App layer redundant -->
+  <text x="40" y="465" font-size="19" font-weight="bold" fill="#2E75B6">Capa de aplicación (redundada)</text>
+
+  <rect x="120" y="485" width="280" height="120" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="260" y="520" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">WEB (x2 instancias)</text>
+  <text x="260" y="550" font-size="15" fill="#555555" text-anchor="middle">Front B2C · backoffices</text>
+  <text x="260" y="578" font-size="14" fill="#1F8A4C" text-anchor="middle">WS 2022 Standard · Defender ON</text>
+
+  <rect x="560" y="485" width="280" height="120" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="700" y="520" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">WS (x2 instancias)</text>
+  <text x="700" y="550" font-size="15" fill="#555555" text-anchor="middle">Webservices operadores</text>
+  <text x="700" y="578" font-size="14" fill="#1F8A4C" text-anchor="middle">WS 2022 Standard · Defender ON</text>
+
+  <rect x="1000" y="485" width="280" height="120" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="1140" y="520" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">APP</text>
+  <text x="1140" y="550" font-size="15" fill="#555555" text-anchor="middle">API app Spotlio</text>
+  <text x="1140" y="578" font-size="14" fill="#1F8A4C" text-anchor="middle">WS 2022 Standard · Defender ON</text>
+
+  <line x1="600" y1="410" x2="300" y2="485" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="700" y1="410" x2="700" y2="485" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="800" y1="410" x2="1100" y2="485" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <!-- SQL partitioned -->
+  <text x="40" y="665" font-size="19" font-weight="bold" fill="#2E75B6">Capa de datos (particionada — SQL Standard)</text>
+
+  <rect x="120" y="685" width="360" height="110" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="300" y="720" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle">SQL Negocio</text>
+  <text x="300" y="748" font-size="14.5" fill="#555555" text-anchor="middle">Bases para "vender" · elástico</text>
+  <text x="300" y="772" font-size="14.5" fill="#555555" text-anchor="middle">abonos, recargas, cashless…</text>
+
+  <rect x="520" y="685" width="360" height="110" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="700" y="720" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle">SQL Servicio</text>
+  <text x="700" y="748" font-size="14.5" fill="#555555" text-anchor="middle">Información y módulos add-in</text>
+  <text x="700" y="772" font-size="14.5" fill="#555555" text-anchor="middle">escalable</text>
+
+  <rect x="920" y="685" width="360" height="110" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="1100" y="720" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle">SQL Espejo</text>
+  <text x="1100" y="748" font-size="14.5" fill="#555555" text-anchor="middle">Reporting · solo lectura</text>
+  <text x="1100" y="772" font-size="14.5" fill="#555555" text-anchor="middle">escalable</text>
+
+  <line x1="260" y1="605" x2="300" y2="685" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="700" y1="605" x2="700" y2="685" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="1140" y1="605" x2="1100" y2="685" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <!-- Side panel: transversal -->
+  <rect x="1040" y="120" width="320" height="290" rx="10" fill="#FFF8E1" stroke="#B7950B" stroke-width="2.5"/>
+  <text x="1200" y="152" font-size="18" font-weight="bold" fill="#B7950B" text-anchor="middle">Servicios transversales</text>
+  <text x="1058" y="184" font-size="15" fill="#1A1A1A">• Monitorización Grafana</text>
+  <text x="1058" y="210" font-size="15" fill="#1A1A1A">  gestionada + alertas a IT</text>
+  <text x="1058" y="240" font-size="15" fill="#1A1A1A">• Backups 3-2-1 (SQL e IIS)</text>
+  <text x="1058" y="270" font-size="15" fill="#1A1A1A">• MFA / passwordless acceso</text>
+  <text x="1058" y="300" font-size="15" fill="#1A1A1A">• Gestión central de parches</text>
+  <text x="1058" y="330" font-size="15" fill="#1A1A1A">• Pen testing periódico</text>
+  <text x="1058" y="360" font-size="15" fill="#1A1A1A">• Volúmenes: SO / Data /</text>
+  <text x="1058" y="384" font-size="15" fill="#1A1A1A">  Mirror + rotación de logs</text>
+</svg>
+      <figcaption>Figura 2. Arquitectura propuesta (modelo agnóstico).</figcaption>
+    </figure>
+    <h2>6.1 · Particionado del servidor de datos</h2>
+    <p>Dividir el servidor SQL monolítico en servidores independientes según su función: <strong>Negocio</strong> (bases para vender, elástico), <strong>Servicio</strong> (información y add-ins, escalable) y <strong>Espejo</strong> (reporting de solo lectura, escalable). El alcance exacto se cerrará con el equipo técnico.</p>
+    <h2>6.2 · Load Balancer</h2>
+    <p>Pieza vital del proyecto. Distribuye el tráfico entre varias instancias eliminando el SPOF, aplica health checks, permite actualizaciones sin downtime (rolling), absorbe picos estacionales y centraliza la terminación TLS y las cabeceras de seguridad.</p>
+    <h2>6.3 · WAF (firewall de aplicación)</h2>
+    <p>Imprescindible para dotar al ecosistema de inspección en la capa de aplicación. Se valoran tres opciones:</p>
+    <table>
+      <tr><th>Opción</th><th>Ventajas</th><th>Inconvenientes</th></tr>
+      <tr><td><strong>WAF cloud nativo</strong></td><td>Gestionado y escalable; reglas OWASP mantenidas por el proveedor; encaja con ENS-Media.</td><td>Coste recurrente; menor control de reglas propias; dependencia del proveedor.</td></tr>
+      <tr><td><strong>WAF autohospedado</strong></td><td>Control total y sin coste de licencia; experiencia interna previa; dinámico ante ataques.</td><td>Otra máquina a mantener y parchear; si no se redunda, vuelve a ser un SPOF.</td></tr>
+      <tr><td><strong>CDN/DNS + WAF</strong></td><td>Mitiga DDoS en el borde; CDN acelera la entrega; sencillo de poner en marcha.</td><td>El tráfico pasa por un tercero; coste en planes de pago.</td></tr>
+    </table>
+    <p><strong>Recomendación:</strong> WAF nativo del cloud como opción principal, con el autohospedado como alternativa soberana y económica. Decisión final del cliente.</p>
+    <h2>6.4 · Arquitectura estándar de servidor</h2>
+    <p>Patrón homogéneo sobre Windows Server 2022 Standard: disco para sistema operativo, volumen «Data» (web, datos, logs, tareas) con rotación de logs programada, y volumen «Mirror» como espejo.</p>
+    <div class="callout c-gold"><h4>Matización sobre el volumen espejo</h4>
+      <p>El volumen «Mirror» aporta redundancia de disponibilidad (protege frente a un fallo de disco), pero no es una copia de seguridad: un borrado lógico, una corrupción o un ataque se replicarían de inmediato al espejo. Es complemento, nunca sustituto, de la cadena de copias.</p></div>
+    <h2>6.5 · Copias de seguridad</h2>
+    <p>Para las bases de datos, política 3-2-1: copia local en el volumen, copia en un Storage Box dedicado y copia diaria adicional en máquina externa. Las políticas de rotación y retención se acordarán con Aramón, con la obligación fiscal de cinco años (AEAT-SII) como referencia. Para IIS, se propone replicar ese modelo y no depender de un único proveedor, documentando el protocolo de recuperación validada como runbook y probándolo periódicamente.</p>
+    <h2>6.6 · Acceso seguro sin contraseña</h2>
+    <p>Incorporar autenticación multifactor (MFA) y métodos sin contraseña (biometría, FIDO2 u OTP) para el acceso a los servidores. Eleva el nivel de seguridad y encaja con ENS-Media.</p>
+    <h2>6.7 · Edición de base de datos: Standard</h2>
+    <p>Se propone SQL Server Standard en lugar de Enterprise. La instancia no está en clúster ni usa Always On (las funciones que justifican Enterprise). Standard cubre con holgura las necesidades y la alta disponibilidad se resuelve a nivel de arquitectura. Ahorro significativo sin pérdida funcional real.</p>
+    <h2>6.8 · Gestión de actualizaciones</h2>
+    <p>Proceso centralizado con ventanas de mantenimiento y anillos de despliegue: primero un servidor no crítico y, tras validar, el resto. Apoyado en el Load Balancer, el parcheo se realiza sin downtime.</p>
+    <h2>6.9 · Monitorización gestionada</h2>
+    <p>Sobre la base de Grafana, ofrecer un servicio gestionado adaptado al equipo de IT, con monitorización activa y envío al correo de las alertas vitales. Convierte la observabilidad de reactiva en proactiva.</p>
+    <h2>6.10 · Pruebas de penetración periódicas</h2>
+    <p>Programa de pen testing con pruebas externas anuales por tercero certificado, revisión periódica del WAF, verificación de la segmentación interna y un proceso de remediación con criticidades y plazos definidos.</p>
+    <div class="pager">
+      <a href="#disponibilidad" data-sec="disponibilidad"><div class="dir">← Anterior</div><div class="ttl">Disponibilidad</div></a>
+      <a class="next" href="#resumen" data-sec="resumen"><div class="dir">Siguiente →</div><div class="ttl">Impacto y prioridad</div></a></div>
+  </section>
+
+  <!-- 7 -->
+  <section id="resumen">
+    <div class="kicker">Sección 7</div><h1>Resumen de impacto y priorización</h1>
+    <table>
+      <tr><th>Recomendación</th><th>Área</th><th>Prioridad</th><th>Beneficio</th></tr>
+      <tr><td>Particionar servidor SQL</td><td>Rendimiento / Continuidad</td><td><span class="tag t-veryhigh">Muy alta</span></td><td>Elimina el cuello de botella</td></tr>
+      <tr><td>Load Balancer</td><td>Rendimiento / Continuidad</td><td><span class="tag t-high">Alta</span></td><td>Elimina SPOF en web y WS</td></tr>
+      <tr><td>WAF</td><td>Seguridad</td><td><span class="tag t-high">Alta</span></td><td>Inspección de capa 7</td></tr>
+      <tr><td>Bases de datos escalables</td><td>Continuidad / Rendimiento</td><td><span class="tag t-high">Alta</span></td><td>Protege el núcleo de datos</td></tr>
+      <tr><td>MFA / acceso sin contraseña</td><td>Seguridad</td><td><span class="tag t-med">Media</span></td><td>Refuerza el control de acceso</td></tr>
+      <tr><td>Gestión de actualizaciones</td><td>Seguridad / Continuidad</td><td><span class="tag t-med">Media</span></td><td>Reduce vulnerabilidades</td></tr>
+      <tr><td>Edición SQL Standard</td><td>Coste</td><td><span class="tag t-med">Media</span></td><td>Ahorro sin pérdida funcional</td></tr>
+      <tr><td>Monitorización gestionada</td><td>Observabilidad</td><td><span class="tag t-med">Media</span></td><td>Detección proactiva</td></tr>
+      <tr><td>Pen testing periódico</td><td>Seguridad</td><td><span class="tag t-med">Media</span></td><td>Reduce superficie de ataque</td></tr>
+    </table>
+    <div class="pager">
+      <a href="#propuestas" data-sec="propuestas"><div class="dir">← Anterior</div><div class="ttl">Propuestas</div></a>
+      <a class="next" href="#pendientes" data-sec="pendientes"><div class="dir">Siguiente →</div><div class="ttl">A tratar con Aramón</div></a></div>
+  </section>
+
+  <!-- 8 -->
+  <section id="pendientes">
+    <div class="kicker">Sección 8</div><h1>Puntos a tratar con Aramón</h1>
+    <p>Para cerrar el alcance en próximas reuniones, quedan pendientes de acordar conjuntamente:</p>
+    <ul>
+      <li>Políticas de rotación y retención de las copias de seguridad (con la obligación fiscal de cinco años como referencia).</li>
+      <li>Rol exacto y dependencias de los servidores adicional y de scraping.</li>
+      <li>Alcance definitivo del particionado del servidor SQL.</li>
+      <li>Elección de la opción de WAF entre las planteadas.</li>
+    </ul>
+    <div class="pager">
+      <a href="#resumen" data-sec="resumen"><div class="dir">← Anterior</div><div class="ttl">Impacto y prioridad</div></a>
+      <a class="next" href="#azure" data-sec="azure"><div class="dir">Siguiente →</div><div class="ttl">Anexo A · Azure</div></a></div>
+  </section>
+
+  <!-- A -->
+  <section id="azure">
+    <div class="kicker">Anexo A</div><h1>Adaptación a Azure</h1>
+    <p>El cuerpo del informe se plantea en modelo agnóstico. Este anexo recoge cómo se materializaría cada propuesta sobre Microsoft Azure, opción especialmente cómoda por su afinidad con SQL Server. Su ventaja principal es sustituir componentes a mantener manualmente por servicios gestionados.</p>
+    <table>
+      <tr><th>Propuesta (agnóstica)</th><th>Servicio en Azure</th><th>Ventaja principal</th></tr>
+      <tr><td>Particionado SQL</td><td>Azure SQL (Elastic Pools / Managed Instance)</td><td>Escalado gestionado y alta compatibilidad con SQL Server.</td></tr>
+      <tr><td>Load Balancer + WAF</td><td>Application Gateway con WAF</td><td>Balanceo y reglas OWASP gestionadas en un punto.</td></tr>
+      <tr><td>Monitorización y logs</td><td>Azure Monitor + Log Analytics + Sentinel</td><td>Retención gestionada y detección proactiva sin scripts.</td></tr>
+      <tr><td>Acceso sin contraseña</td><td>Microsoft Entra ID (MFA, FIDO2, Windows Hello)</td><td>Identidad centralizada y passwordless.</td></tr>
+      <tr><td>Gestión de parches</td><td>Azure Update Manager</td><td>Parcheo programado y auditable de todas las máquinas.</td></tr>
+      <tr><td>Copias de seguridad</td><td>Azure Backup</td><td>Copias gestionadas con retención y restauración probada.</td></tr>
+    </table>
+    <div class="pager">
+      <a href="#pendientes" data-sec="pendientes"><div class="dir">← Anterior</div><div class="ttl">A tratar con Aramón</div></a>
+      <a class="next" href="#ens" data-sec="ens"><div class="dir">Siguiente →</div><div class="ttl">Anexo B · ENS-Media</div></a></div>
+  </section>
+
+  <!-- B -->
+  <section id="ens">
+    <div class="kicker">Anexo B</div><h1>Cumplimiento ENS-Media</h1>
+    <p>El Esquema Nacional de Seguridad (ENS), en categoría media, establece un conjunto de medidas de obligado cumplimiento. La arquitectura propuesta facilita ese encaje. Esta tabla es orientativa, no una declaración de conformidad.</p>
+    <table>
+      <tr><th>Bloque ENS</th><th>Qué exige (resumen)</th><th>Cómo lo cubre la propuesta</th></tr>
+      <tr><td>Control de acceso</td><td>Identificación, autenticación y mínimo privilegio.</td><td>MFA / acceso sin contraseña; firewall con todo cerrado por defecto.</td></tr>
+      <tr><td>Protección de comunicaciones</td><td>Perímetro seguro e inspección del tráfico.</td><td>WAF, terminación TLS centralizada y cabeceras de seguridad.</td></tr>
+      <tr><td>Disponibilidad</td><td>Continuidad del servicio y redundancia.</td><td>Load Balancer, particionado SQL y eliminación de SPOF.</td></tr>
+      <tr><td>Trazabilidad</td><td>Registro de actividad y conservación de evidencias.</td><td>Monitorización gestionada, analítica de logs y retención.</td></tr>
+      <tr><td>Integridad y conservación</td><td>Copias de seguridad y retención de datos.</td><td>Política 3-2-1 y retención fiscal de cinco años (AEAT-SII).</td></tr>
+      <tr><td>Gestión de vulnerabilidades</td><td>Actualización y evaluación periódica.</td><td>Gestión central de parches y pen testing periódico.</td></tr>
+    </table>
+    <div class="pager">
+      <a href="#azure" data-sec="azure"><div class="dir">← Anterior</div><div class="ttl">Anexo A · Azure</div></a>
+      <span class="empty"></span></div>
+  </section>
+
+</div>
+<div class="sitefoot">webDreams · Calle Ramón y Cajal, 3 · 22001 Huesca · www.wdreams.com · Información confidencial.</div>
+</main>
+
+<!-- lightboxes -->
+<div class="lightbox" id="lb-actual" onclick="closeLB(this)"><svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#555555"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1400" height="900" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="40" y="50" font-size="34" font-weight="bold" fill="#1A1A1A">Ecosistema actual — Aramón</text>
+  <text x="40" y="84" font-size="20" fill="#555555">Infraestructura en hosting tradicional. Único perímetro: firewall edge del proveedor.</text>
+
+  <!-- Internet / users -->
+  <rect x="40" y="130" width="300" height="90" rx="10" fill="#E8EEF4" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="190" y="170" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Internet</text>
+  <text x="190" y="198" font-size="17" fill="#555555" text-anchor="middle">Clientes B2C · Operadores</text>
+
+  <!-- Edge firewall -->
+  <rect x="430" y="130" width="320" height="90" rx="10" fill="#FBE9E7" stroke="#C0392B" stroke-width="2.5"/>
+  <text x="590" y="165" font-size="21" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Firewall edge (proveedor)</text>
+  <text x="590" y="195" font-size="16" fill="#C0392B" text-anchor="middle">Sin WAF · Sin inspección capa 7</text>
+
+  <line x1="340" y1="175" x2="430" y2="175" stroke="#555555" stroke-width="2.5" marker-end="url(#arrow)"/>
+
+  <!-- Presentation layer -->
+  <text x="40" y="285" font-size="20" font-weight="bold" fill="#2E75B6">Capa de presentación / aplicación</text>
+
+  <!-- WEB -->
+  <rect x="40" y="305" width="300" height="150" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="190" y="338" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor WEB</text>
+  <text x="190" y="366" font-size="15" fill="#555555" text-anchor="middle">Front B2C · backoffices</text>
+  <text x="190" y="388" font-size="15" fill="#555555" text-anchor="middle">sitios web públicos</text>
+  <text x="190" y="410" font-size="15" fill="#555555" text-anchor="middle">y backoffices</text>
+  <text x="190" y="438" font-size="14" font-weight="bold" fill="#C0392B" text-anchor="middle">RECARGAS ARAMÓN (crítico)</text>
+
+  <!-- WS / BUSES -->
+  <rect x="370" y="305" width="300" height="150" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="520" y="338" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor WS</text>
+  <text x="520" y="362" font-size="15" fill="#555555" text-anchor="middle">(webservices)</text>
+  <text x="520" y="388" font-size="15" fill="#555555" text-anchor="middle">Webservices SOAP / REST</text>
+  <text x="520" y="412" font-size="15" fill="#555555" text-anchor="middle">Bus clientes · transacciones</text>
+  <text x="520" y="438" font-size="14" fill="#555555" text-anchor="middle">Cashless · SFSC</text>
+
+  <!-- APP -->
+  <rect x="700" y="305" width="300" height="150" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="850" y="338" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor APP</text>
+  <text x="850" y="364" font-size="15" fill="#555555" text-anchor="middle">API app Spotlio</text>
+  <text x="850" y="388" font-size="15" fill="#555555" text-anchor="middle">React · .Net · IIS</text>
+  <text x="850" y="414" font-size="14" fill="#555555" text-anchor="middle">Venta · gamificación</text>
+  <text x="850" y="438" font-size="13" fill="#1F8A4C" text-anchor="middle">Whitelist IP oficina (solo gestión)</text>
+
+  <!-- Otros: Servidor adicional + scraping -->
+  <rect x="1030" y="305" width="330" height="150" rx="10" fill="#FFF8E1" stroke="#B7950B" stroke-width="2.5"/>
+  <text x="1195" y="338" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Otros servidores</text>
+  <text x="1195" y="366" font-size="15" fill="#555555" text-anchor="middle">Servidor adicional</text>
+  <text x="1195" y="390" font-size="15" fill="#555555" text-anchor="middle">Servidor de scraping</text>
+  <text x="1195" y="420" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">Rol y dependencias</text>
+  <text x="1195" y="440" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">pendientes de detallar</text>
+
+  <!-- arrows from edge to layer -->
+  <line x1="560" y1="220" x2="300" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="590" y1="220" x2="540" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="620" y1="220" x2="820" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- SQL layer -->
+  <text x="40" y="535" font-size="20" font-weight="bold" fill="#2E75B6">Capa de datos</text>
+  <rect x="40" y="555" width="960" height="190" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="520" y="592" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor SQL — instancia única (Enterprise)</text>
+  <text x="520" y="624" font-size="16" fill="#C0392B" text-anchor="middle" font-weight="bold">Cuello de botella · Punto único de fallo (SPOF) · 19 bases de datos en un solo servidor</text>
+
+  <text x="170" y="662" font-size="15" font-weight="bold" fill="#1F8A4C" text-anchor="middle">Negocio</text>
+  <text x="170" y="686" font-size="13" fill="#555555" text-anchor="middle">abonoTemporada,</text>
+  <text x="170" y="706" font-size="13" fill="#555555" text-anchor="middle">Promociones, wdRecargas,</text>
+  <text x="170" y="726" font-size="13" fill="#555555" text-anchor="middle">cashless, cashback…</text>
+
+  <text x="470" y="662" font-size="15" font-weight="bold" fill="#1F8A4C" text-anchor="middle">Servicio</text>
+  <text x="470" y="686" font-size="13" fill="#555555" text-anchor="middle">busTransacciones,</text>
+  <text x="470" y="706" font-size="13" fill="#555555" text-anchor="middle">InterfaceClientesG7,</text>
+  <text x="470" y="726" font-size="13" fill="#555555" text-anchor="middle">Marchica, sfsc…</text>
+
+  <text x="800" y="662" font-size="15" font-weight="bold" fill="#1F8A4C" text-anchor="middle">Reporting (espejo)</text>
+  <text x="800" y="686" font-size="13" fill="#555555" text-anchor="middle">espejo_abonotemporada,</text>
+  <text x="800" y="706" font-size="13" fill="#555555" text-anchor="middle">espejo_promociones,</text>
+  <text x="800" y="726" font-size="13" fill="#555555" text-anchor="middle">espejo_skidreams…</text>
+
+  <line x1="320" y1="295" x2="420" y2="555" stroke="#555555" stroke-width="2" stroke-dasharray="2 0" marker-end="url(#arrow)" opacity="0"/>
+  <line x1="190" y1="455" x2="300" y2="555" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="520" y1="455" x2="520" y2="555" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="850" y1="455" x2="700" y2="555" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Findings box -->
+  <rect x="1030" y="555" width="330" height="190" rx="10" fill="#FBE9E7" stroke="#C0392B" stroke-width="2.5"/>
+  <text x="1195" y="588" font-size="18" font-weight="bold" fill="#C0392B" text-anchor="middle">Hallazgos clave</text>
+  <text x="1050" y="618" font-size="14.5" fill="#1A1A1A">• Sin redundancia ni balanceo</text>
+  <text x="1050" y="644" font-size="14.5" fill="#1A1A1A">• Defender (FW + AV) desactivado</text>
+  <text x="1050" y="670" font-size="14.5" fill="#1A1A1A">• Filtrado IP y tráfico sin reglas</text>
+  <text x="1050" y="696" font-size="14.5" fill="#1A1A1A">• Solo redirección 80→443</text>
+  <text x="1050" y="722" font-size="14.5" fill="#1A1A1A">• Actualizaciones sin gestionar</text>
+
+  <!-- footer note -->
+  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Todos los servidores: VMware · Windows Server 2019 Datacenter · grupo de trabajo.</text>
+</svg></div>
+<div class="lightbox" id="lb-prop" onclick="closeLB(this)"><svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" markerWidth="12" markerHeight="12" refX="9" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#555555"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1400" height="900" fill="#FFFFFF"/>
+
+  <text x="40" y="50" font-size="34" font-weight="bold" fill="#1A1A1A">Arquitectura propuesta (modelo agnóstico)</text>
+  <text x="40" y="84" font-size="20" fill="#555555">Seguridad por capas · alta disponibilidad · eliminación de puntos únicos de fallo.</text>
+
+  <!-- Internet -->
+  <rect x="560" y="120" width="280" height="70" rx="10" fill="#E8EEF4" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="700" y="163" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Internet</text>
+
+  <!-- WAF -->
+  <rect x="500" y="220" width="400" height="80" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="3"/>
+  <text x="700" y="253" font-size="21" font-weight="bold" fill="#1A1A1A" text-anchor="middle">WAF + CDN (inspección capa 7)</text>
+  <text x="700" y="282" font-size="16" fill="#1F8A4C" text-anchor="middle">Cabeceras seguridad · reglas OWASP · anti-DDoS</text>
+  <line x1="700" y1="190" x2="700" y2="220" stroke="#555555" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- Load balancer -->
+  <rect x="500" y="330" width="400" height="80" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="3"/>
+  <text x="700" y="363" font-size="21" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Load Balancer</text>
+  <text x="700" y="392" font-size="16" fill="#1F8A4C" text-anchor="middle">Health checks · TLS · rolling updates sin downtime</text>
+  <line x1="700" y1="300" x2="700" y2="330" stroke="#555555" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+  <!-- App layer redundant -->
+  <text x="40" y="465" font-size="19" font-weight="bold" fill="#2E75B6">Capa de aplicación (redundada)</text>
+
+  <rect x="120" y="485" width="280" height="120" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="260" y="520" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">WEB (x2 instancias)</text>
+  <text x="260" y="550" font-size="15" fill="#555555" text-anchor="middle">Front B2C · backoffices</text>
+  <text x="260" y="578" font-size="14" fill="#1F8A4C" text-anchor="middle">WS 2022 Standard · Defender ON</text>
+
+  <rect x="560" y="485" width="280" height="120" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="700" y="520" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">WS (x2 instancias)</text>
+  <text x="700" y="550" font-size="15" fill="#555555" text-anchor="middle">Webservices operadores</text>
+  <text x="700" y="578" font-size="14" fill="#1F8A4C" text-anchor="middle">WS 2022 Standard · Defender ON</text>
+
+  <rect x="1000" y="485" width="280" height="120" rx="10" fill="#F4F8FB" stroke="#2E75B6" stroke-width="2.5"/>
+  <text x="1140" y="520" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">APP</text>
+  <text x="1140" y="550" font-size="15" fill="#555555" text-anchor="middle">API app Spotlio</text>
+  <text x="1140" y="578" font-size="14" fill="#1F8A4C" text-anchor="middle">WS 2022 Standard · Defender ON</text>
+
+  <line x1="600" y1="410" x2="300" y2="485" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="700" y1="410" x2="700" y2="485" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="800" y1="410" x2="1100" y2="485" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <!-- SQL partitioned -->
+  <text x="40" y="665" font-size="19" font-weight="bold" fill="#2E75B6">Capa de datos (particionada — SQL Standard)</text>
+
+  <rect x="120" y="685" width="360" height="110" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="300" y="720" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle">SQL Negocio</text>
+  <text x="300" y="748" font-size="14.5" fill="#555555" text-anchor="middle">Bases para "vender" · elástico</text>
+  <text x="300" y="772" font-size="14.5" fill="#555555" text-anchor="middle">abonos, recargas, cashless…</text>
+
+  <rect x="520" y="685" width="360" height="110" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="700" y="720" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle">SQL Servicio</text>
+  <text x="700" y="748" font-size="14.5" fill="#555555" text-anchor="middle">Información y módulos add-in</text>
+  <text x="700" y="772" font-size="14.5" fill="#555555" text-anchor="middle">escalable</text>
+
+  <rect x="920" y="685" width="360" height="110" rx="10" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2.5"/>
+  <text x="1100" y="720" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle">SQL Espejo</text>
+  <text x="1100" y="748" font-size="14.5" fill="#555555" text-anchor="middle">Reporting · solo lectura</text>
+  <text x="1100" y="772" font-size="14.5" fill="#555555" text-anchor="middle">escalable</text>
+
+  <line x1="260" y1="605" x2="300" y2="685" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="700" y1="605" x2="700" y2="685" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+  <line x1="1140" y1="605" x2="1100" y2="685" stroke="#555555" stroke-width="2" marker-end="url(#arrow2)"/>
+
+  <!-- Side panel: transversal -->
+  <rect x="1040" y="120" width="320" height="290" rx="10" fill="#FFF8E1" stroke="#B7950B" stroke-width="2.5"/>
+  <text x="1200" y="152" font-size="18" font-weight="bold" fill="#B7950B" text-anchor="middle">Servicios transversales</text>
+  <text x="1058" y="184" font-size="15" fill="#1A1A1A">• Monitorización Grafana</text>
+  <text x="1058" y="210" font-size="15" fill="#1A1A1A">  gestionada + alertas a IT</text>
+  <text x="1058" y="240" font-size="15" fill="#1A1A1A">• Backups 3-2-1 (SQL e IIS)</text>
+  <text x="1058" y="270" font-size="15" fill="#1A1A1A">• MFA / passwordless acceso</text>
+  <text x="1058" y="300" font-size="15" fill="#1A1A1A">• Gestión central de parches</text>
+  <text x="1058" y="330" font-size="15" fill="#1A1A1A">• Pen testing periódico</text>
+  <text x="1058" y="360" font-size="15" fill="#1A1A1A">• Volúmenes: SO / Data /</text>
+  <text x="1058" y="384" font-size="15" fill="#1A1A1A">  Mirror + rotación de logs</text>
+</svg></div>
+
+<script>
+  const links=document.querySelectorAll('[data-sec]');
+  const secs=document.querySelectorAll('section');
+  function show(id){
+    secs.forEach(s=>s.classList.toggle('active',s.id===id));
+    document.querySelectorAll('#nav a').forEach(a=>a.classList.toggle('active',a.dataset.sec===id));
+    window.scrollTo({top:0,behavior:'smooth'});
+    history.replaceState(null,'',' #'+id);
+  }
+  links.forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.sec);}));
+  const start=location.hash.replace('#','');
+  if(start && document.getElementById(start)) show(start);
+  function openLB(id){document.getElementById(id).classList.add('open');}
+  function closeLB(el){el.classList.remove('open');}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.lightbox').forEach(l=>l.classList.remove('open'));});
+</script>
+</body>
+</html>
