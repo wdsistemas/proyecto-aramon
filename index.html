@@ -277,8 +277,12 @@
   <text x="1050" y="696" font-size="14.5" fill="#1A1A1A">• Solo redirección 80→443</text>
   <text x="1050" y="722" font-size="14.5" fill="#1A1A1A">• Actualizaciones sin gestionar</text>
 
+  <!-- Mail -->
+  <rect x="40" y="758" width="600" height="48" rx="8" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2"/>
+  <text x="58" y="788" font-size="15" fill="#1A1A1A">Servicio de correo (Zimbra · mailz01) &#8212; SPF + DKIM + DMARC correctos</text>
+
   <!-- footer note -->
-  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Servidores Windows: VMware · Windows Server 2019 Datacenter · grupo de trabajo. El servidor de scraping es Linux (Ubuntu).</text>
+  <text x="40" y="848" font-size="15" font-style="italic" fill="#888888">Servidores Windows: VMware · Windows Server 2019 Datacenter · grupo de trabajo. El servidor de scraping es Linux (Ubuntu).</text>
 </svg>
       <figcaption>Figura 1. Ecosistema actual.</figcaption>
     </figure>
@@ -294,6 +298,16 @@
     <p>Aloja la totalidad de las bases de datos del ecosistema (19 bases agrupadas en negocio, servicio, reporting y add-ins). Es el corazón del sistema y su mayor concentración de riesgo. Entre sus procesos destaca <strong>ventasG7_perso</strong> (servicio crítico).</p>
     <h3>Monitorización actual</h3>
     <p>Grafana (métricas de servidor), SQL Profiler (consultas en tiempo real), Management Studio (estado del servidor) y un monitor interno de procesos que avisa de caídas y restauraciones.</p>
+    <h3>Servicio de correo</h3>
+    <p>El correo se gestiona mediante servidor propio de webDreams sobre <strong>Zimbra</strong> (servidor <em>mailz01</em>), con dominio dedicado <strong>mail.aramon.com</strong>. El registro DNS (un CNAME hacia <em>mailz01.wdreams.com</em>, TTL 60s) está publicado correctamente, y se dispone del control del DNS del dominio aramon.com.</p>
+    <table>
+      <tr><th>Cuentas de correo gestionadas (aramon.com)</th></tr>
+      <tr><td>correo@aramon.com</td></tr>
+      <tr><td>skipirineos@aramon.com</td></tr>
+      <tr><td>concursogeal@aramon.com</td></tr>
+      <tr><td>atenciontarjetas@aramon.com</td></tr>
+      <tr><td>contacto@aramon.com</td></tr>
+    </table>
     <div class="pager">
       <a href="#inventario" data-sec="inventario"><div class="dir">← Anterior</div><div class="ttl">Inventario</div></a>
       <a class="next" href="#seguridad" data-sec="seguridad"><div class="dir">Siguiente →</div><div class="ttl">Diagnóstico de seguridad</div></a></div>
@@ -314,6 +328,10 @@
     </ul>
     <h2>Lo que está correctamente planteado</h2>
     <p>El firewall de control de acceso (RDP, puertos de base de datos) sigue un criterio acertado: todo cerrado por defecto, abriendo únicamente lo necesario. Es una buena base sobre la que construir.</p>
+    <h2>Correo y DNS</h2>
+    <p>El servicio de correo, gestionado sobre Zimbra, presenta una configuración de seguridad madura: los registros anti-spoofing están correctamente desplegados (SPF en <em>hardfail</em>, DKIM con firma segmentada por flujo y DMARC en política de cuarentena/rechazo). Disponer del control del DNS del dominio aramon.com facilita además incorporar los registros que la nueva arquitectura requiera (por ejemplo, para la puesta en marcha de un WAF/CDN o validaciones de seguridad de correo).</p>
+    <div class="callout c-green"><h4>Punto fuerte del ecosistema</h4>
+      <p>A diferencia del resto de capas, el correo está bien asegurado de extremo a extremo. Es un punto de partida favorable de cara al cumplimiento ENS-Media.</p></div>
     <div class="pager">
       <a href="#arquitectura" data-sec="arquitectura"><div class="dir">← Anterior</div><div class="ttl">Arquitectura actual</div></a>
       <a class="next" href="#disponibilidad" data-sec="disponibilidad"><div class="dir">Siguiente →</div><div class="ttl">Disponibilidad</div></a></div>
@@ -632,8 +650,12 @@
   <text x="1050" y="696" font-size="14.5" fill="#1A1A1A">• Solo redirección 80→443</text>
   <text x="1050" y="722" font-size="14.5" fill="#1A1A1A">• Actualizaciones sin gestionar</text>
 
+  <!-- Mail -->
+  <rect x="40" y="758" width="600" height="48" rx="8" fill="#EAF3EC" stroke="#1F8A4C" stroke-width="2"/>
+  <text x="58" y="788" font-size="15" fill="#1A1A1A">Servicio de correo (Zimbra · mailz01) &#8212; SPF + DKIM + DMARC correctos</text>
+
   <!-- footer note -->
-  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Servidores Windows: VMware · Windows Server 2019 Datacenter · grupo de trabajo. El servidor de scraping es Linux (Ubuntu).</text>
+  <text x="40" y="848" font-size="15" font-style="italic" fill="#888888">Servidores Windows: VMware · Windows Server 2019 Datacenter · grupo de trabajo. El servidor de scraping es Linux (Ubuntu).</text>
 </svg></div>
 <div class="lightbox" id="lb-prop" onclick="closeLB(this)"><svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
   <defs>
