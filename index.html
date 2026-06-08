@@ -155,18 +155,18 @@
   <!-- 2 -->
   <section id="inventario">
     <div class="kicker">Sección 2</div><h1>Inventario de servidores</h1>
-    <p>El ecosistema se compone de los siguientes servidores. Todos son máquinas virtuales sobre VMware, con Windows Server 2019 Datacenter, organizadas en grupo de trabajo.</p>
+    <p>El ecosistema se compone de los siguientes servidores. Los servidores del núcleo de negocio son máquinas virtuales sobre VMware, con Windows Server 2019 Datacenter, organizadas en grupo de trabajo. El servidor de scraping es una máquina Linux independiente alojada en Hetzner.</p>
     <table>
       <tr><th>Servidor</th><th>Rol</th><th>SO / Software</th><th>Recursos</th></tr>
       <tr><td><strong>Servidor WEB</strong></td><td>Front B2C, backoffices, parte de nieve, scraping interno</td><td>WS 2019 Datacenter</td><td>2 vCPU · 5 GB · 399 GB</td></tr>
       <tr><td><strong>Servidor WS</strong></td><td>Webservices SOAP/REST a operadores externos</td><td>WS 2019 Datacenter</td><td>1 vCPU · 2,5 GB · 199 GB</td></tr>
       <tr><td><strong>Servidor APP</strong></td><td>API de la app: venta, gamificación, bus de clientes</td><td>WS 2019 Datacenter</td><td>1 vCPU · 3 GB · 49 GB</td></tr>
       <tr><td><strong>Servidor SQL</strong></td><td>Todas las bases de datos del ecosistema (19 BBDD)</td><td>WS 2019 Datacenter + SQL Server <strong>Enterprise</strong></td><td>5 vCPU · 10 GB · 499 GB</td></tr>
-      <tr><td><strong>Servidor adicional</strong></td><td><em style="color:var(--gold)">Rol y dependencias pendientes de detallar</em></td><td>Pendiente</td><td>Pendiente</td></tr>
-      <tr><td><strong>Servidor de scraping</strong></td><td><em style="color:var(--gold)">Rol y dependencias pendientes de detallar</em></td><td>Pendiente</td><td>Pendiente</td></tr>
+      <tr><td><strong>Servidor de scraping</strong></td><td>Scraping de ofertas de estancias</td><td>Ubuntu 24.04 LTS · MySQL 8.0</td><td>4 vCPU · 8 GB · 40 GB</td></tr>
     </table>
     <div class="callout c-gold"><h4>Observación sobre el licenciamiento</h4>
       <p>Las máquinas usan Windows Server <strong>Datacenter</strong>, edición pensada para entornos de alta densidad de virtualización. Aquí se trata de máquinas individuales: el caso de uso corresponde a la edición Standard. Del mismo modo, el motor de base de datos es SQL Server <strong>Enterprise</strong>, pero la instancia no está en clúster ni emplea Always On: no se aprovecha ninguna de las funciones que justifican esa edición.</p></div>
+    <p style="font-style:italic;color:var(--muted)">La landing corporativa aramon.com queda fuera del alcance de este informe, al estar gestionada directamente por el equipo de IT de Aramón.</p>
     <div class="pager">
       <a href="#contexto" data-sec="contexto"><div class="dir">← Anterior</div><div class="ttl">Contexto y objetivo</div></a>
       <a class="next" href="#arquitectura" data-sec="arquitectura"><div class="dir">Siguiente →</div><div class="ttl">Arquitectura actual</div></a></div>
@@ -229,13 +229,13 @@
   <text x="850" y="414" font-size="14" fill="#555555" text-anchor="middle">Venta · gamificación</text>
   <text x="850" y="438" font-size="13" fill="#1F8A4C" text-anchor="middle">Whitelist IP oficina (solo gestión)</text>
 
-  <!-- Otros: Servidor adicional + scraping -->
+  <!-- Scraping -->
   <rect x="1030" y="305" width="330" height="150" rx="10" fill="#FFF8E1" stroke="#B7950B" stroke-width="2.5"/>
-  <text x="1195" y="338" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Otros servidores</text>
-  <text x="1195" y="366" font-size="15" fill="#555555" text-anchor="middle">Servidor adicional</text>
-  <text x="1195" y="390" font-size="15" fill="#555555" text-anchor="middle">Servidor de scraping</text>
-  <text x="1195" y="420" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">Rol y dependencias</text>
-  <text x="1195" y="440" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">pendientes de detallar</text>
+  <text x="1195" y="338" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor de scraping</text>
+  <text x="1195" y="364" font-size="15" fill="#555555" text-anchor="middle">Hetzner · Ubuntu 24.04</text>
+  <text x="1195" y="388" font-size="15" fill="#555555" text-anchor="middle">MySQL 8.0</text>
+  <text x="1195" y="414" font-size="14" fill="#555555" text-anchor="middle">Scraping de ofertas</text>
+  <text x="1195" y="436" font-size="14" fill="#555555" text-anchor="middle">de estancias</text>
 
   <!-- arrows from edge to layer -->
   <line x1="560" y1="220" x2="300" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
@@ -278,7 +278,7 @@
   <text x="1050" y="722" font-size="14.5" fill="#1A1A1A">• Actualizaciones sin gestionar</text>
 
   <!-- footer note -->
-  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Todos los servidores: VMware · Windows Server 2019 Datacenter · grupo de trabajo.</text>
+  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Servidores Windows: VMware · Windows Server 2019 Datacenter · grupo de trabajo. El servidor de scraping es Linux (Ubuntu).</text>
 </svg>
       <figcaption>Figura 1. Ecosistema actual.</figcaption>
     </figure>
@@ -484,7 +484,6 @@
     <p>Para cerrar el alcance en próximas reuniones, quedan pendientes de acordar conjuntamente:</p>
     <ul>
       <li>Políticas de rotación y retención de las copias de seguridad (con la obligación fiscal de cinco años como referencia).</li>
-      <li>Rol exacto y dependencias de los servidores adicional y de scraping.</li>
       <li>Alcance definitivo del particionado del servidor SQL.</li>
       <li>Elección de la opción de WAF entre las planteadas.</li>
     </ul>
@@ -585,13 +584,13 @@
   <text x="850" y="414" font-size="14" fill="#555555" text-anchor="middle">Venta · gamificación</text>
   <text x="850" y="438" font-size="13" fill="#1F8A4C" text-anchor="middle">Whitelist IP oficina (solo gestión)</text>
 
-  <!-- Otros: Servidor adicional + scraping -->
+  <!-- Scraping -->
   <rect x="1030" y="305" width="330" height="150" rx="10" fill="#FFF8E1" stroke="#B7950B" stroke-width="2.5"/>
-  <text x="1195" y="338" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Otros servidores</text>
-  <text x="1195" y="366" font-size="15" fill="#555555" text-anchor="middle">Servidor adicional</text>
-  <text x="1195" y="390" font-size="15" fill="#555555" text-anchor="middle">Servidor de scraping</text>
-  <text x="1195" y="420" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">Rol y dependencias</text>
-  <text x="1195" y="440" font-size="14" font-style="italic" fill="#B7950B" text-anchor="middle">pendientes de detallar</text>
+  <text x="1195" y="338" font-size="19" font-weight="bold" fill="#1A1A1A" text-anchor="middle">Servidor de scraping</text>
+  <text x="1195" y="364" font-size="15" fill="#555555" text-anchor="middle">Hetzner · Ubuntu 24.04</text>
+  <text x="1195" y="388" font-size="15" fill="#555555" text-anchor="middle">MySQL 8.0</text>
+  <text x="1195" y="414" font-size="14" fill="#555555" text-anchor="middle">Scraping de ofertas</text>
+  <text x="1195" y="436" font-size="14" fill="#555555" text-anchor="middle">de estancias</text>
 
   <!-- arrows from edge to layer -->
   <line x1="560" y1="220" x2="300" y2="305" stroke="#555555" stroke-width="2" marker-end="url(#arrow)"/>
@@ -634,7 +633,7 @@
   <text x="1050" y="722" font-size="14.5" fill="#1A1A1A">• Actualizaciones sin gestionar</text>
 
   <!-- footer note -->
-  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Todos los servidores: VMware · Windows Server 2019 Datacenter · grupo de trabajo.</text>
+  <text x="40" y="800" font-size="15" font-style="italic" fill="#888888">Servidores Windows: VMware · Windows Server 2019 Datacenter · grupo de trabajo. El servidor de scraping es Linux (Ubuntu).</text>
 </svg></div>
 <div class="lightbox" id="lb-prop" onclick="closeLB(this)"><svg viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
   <defs>
